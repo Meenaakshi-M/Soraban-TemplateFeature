@@ -1,8 +1,9 @@
 # Test Plan for Template Editor Feature
 
-# Test Goal - The goal is to ensure that Conditional logic, data structures, rollover behavior and rendering across different views remain consistent and stable
+Test Goal - The goal is to ensure that Conditional logic, data structures, rollover behavior and rendering across different views remain consistent and stable
 
 Scenario 1 - Template Editor
+
 TestCases
 
 1. Template Creation
@@ -22,12 +23,13 @@ TestCases
     4. Remove existing questions from a section
     5. Reorder the sections in an existing template
     6. Reorder the questions in an existing template
-    7. Copying section or questions (check if this is feasible)
+    7. Copying section or questions 
 3. Template Deletion(Section/question)
     1. Remove a section from an existing template
     2. Remove questions from an existing template
 
 Scenario 2 - Client Entries
+
 Testcases
 
 New template from scratch
@@ -46,6 +48,7 @@ Use an existing template
 6. Make sure edits show up in preview and client page
 
 Scenario 3: Conditional Logic
+
 Testcases
 
 1. Add a new template
