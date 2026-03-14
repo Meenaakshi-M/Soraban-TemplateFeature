@@ -19,6 +19,8 @@ TestCases
 2. Template edits
     1. Add a new section to an existing template
     2. Add a new question to an existing template
+    3. Rename an existing section 
+    4. Rename or rephrase existing questions from a section
     3. Remove existing section
     4. Remove existing questions from a section
     5. Reorder the sections in an existing template
