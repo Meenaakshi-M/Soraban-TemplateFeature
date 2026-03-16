@@ -1,5 +1,6 @@
 import {test, expect} from '@playwright/test';
 import { addQuestionData, addSectionData, addTemplateData } from '../../TestData/TemplateEditorData.ts';
+import { logresponse } from '../../Utils/helper.ts';
 
 const baseURL =  process.env.API_BASE_URL;
 
@@ -13,7 +14,7 @@ test.describe('Template Editor API Tests', () => {
       name: templateData.templateName,
       description: templateData.templateDescription
     }});
-    console.log('Template Data:', templateData);
+    await logresponse(postResponse);
    
     expect(postResponse.status()).toBe(201);
     const postResponseBody = await postResponse.json();
@@ -32,7 +33,7 @@ test.describe('Template Editor API Tests', () => {
       instruction: sectionData.instruction
     }});
 
-    // Validate that the response status is 201 (Created)
+    await logresponse(postSection1Response);
     expect(postSection1Response.status()).toBe(201);
     const postSection1ResponseBody = await postSection1Response.json();
     expect(postSection1ResponseBody).toHaveProperty('id');
@@ -46,7 +47,8 @@ test.describe('Template Editor API Tests', () => {
       sectionType: 'questionnaire',
       instruction: sectionData.instruction
     } });
-   
+
+    await logresponse(postSection2Response);
     expect(postSection2Response.status()).toBe(201);
     const postSection2ResponseBody = await postSection2Response.json();
     expect(postSection2ResponseBody).toHaveProperty('id');
@@ -60,6 +62,7 @@ test.describe('Template Editor API Tests', () => {
       type: questionData.questionType
     } });
     
+    await logresponse(postQuestion1Response);
     expect(postQuestion1Response.status()).toBe(201);
     const postQuestion1ResponseBody = await postQuestion1Response.json();
     expect(postQuestion1ResponseBody).toHaveProperty('id');
@@ -72,17 +75,18 @@ test.describe('Template Editor API Tests', () => {
       text: questionData.questionText,
       type: questionData.questionType
     } });
-    // Validate that the response status is 201 (Created)
+    
+    await logresponse(postQuestion2Response);
     expect(postQuestion2Response.status()).toBe(201);
     const postQuestion2ResponseBody = await postQuestion2Response.json();
     expect(postQuestion2ResponseBody).toHaveProperty('id');
     const question2Id = postQuestion2ResponseBody.id;
 
-    // Validate Section Edits'
+    // Validate Section Edits
     const putSectionResponse = await request.put(`/api/v1/templates/${templateId}/sections/${section1Id}`, { data: {
       name: 'New Section Name',
     } });
-    // Validate that the response status is 200 (OK)
+   
     expect(putSectionResponse.status()).toBe(200);
     const putSectionResponseBody = await putSectionResponse.json();
     expect(putSectionResponseBody.name).toBe('New Section Name');
@@ -91,7 +95,7 @@ test.describe('Template Editor API Tests', () => {
     const putQuestionResponse = await request.put(`/api/v1/templates/${templateId}/sections/${section1Id}/questions/${question1Id}`, { data: {
       text: 'New Question Text',
     } });
-    // Validate that the response status is 200 (OK)
+    
     expect(putQuestionResponse.status()).toBe(200);
     const putQuestionResponseBody = await putQuestionResponse.json();
     expect(putQuestionResponseBody.text).toBe('New Question Text');

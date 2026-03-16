@@ -2,7 +2,7 @@
 
 Test Goal - The goal is to ensure that Conditional logic, data structures, rollover behavior and rendering across different views remain consistent and stable
 
-Scenario 1 - Template Editor
+## Scenario 1 - Template Editor
 
 TestCases
 
@@ -16,7 +16,7 @@ TestCases
 		2. Add new questions  
 		3. Reorder the sections
         4. Verify the newly created template in preview page and client page
-2. Template edits
+2. Template Edits
     1. Add a new section to an existing template
     2. Add a new question to an existing template
     3. Rename an existing section 
@@ -30,26 +30,27 @@ TestCases
     1. Remove a section from an existing template
     2. Remove questions from an existing template
 
-Scenario 2 - Client Entries
+## Scenario 2 - Client Entries & Rollover
 
 Testcases
 
 New template from scratch
-1. Create a new template from scratch an existing template
+1. Create a new template from scratch
 2. Add a section and add new questions of type client entry
-3. Populate questions for all three tabs
+3. Enter Details and populate questions for all three client entry tabs
 4. Edit a question
-5. Make sure edits show up in preview and client page
+5. Remove a question from one of the tabs
+5. Make sure the updates show up in template, preview and client page
 
 Use an existing template
 1. Create a new template from an existing template
-2. Add a section and add new questions of type client entry
-3. Populate questions for all three tabs
+2. Access an existing section that has question type of client entry
+3. Add new questions to this section
 4. Edit a question
 5. Make sure rollover answers map correctly after the edits
-6. Make sure edits show up in preview and client page
+6. Make sure edits show up in template, preview and client page
 
-Scenario 3: Conditional Logic
+## Scenario 3: Conditional Logic & Data Consistency
 
 Testcases
 
@@ -58,7 +59,7 @@ Testcases
 3. Add questions with follow up question for personal information
 4. Add a new section for collecting business information
 5. Add questions with follow up question for business information
-6. Verify the new template, section and questions in preview page
+6. Verify the new template, section and questions in template and preview page
 7. Edit an existing conditional logic in a section
 8. Delete an existing conditional logic and add a new one
-9. Verify the edits are consistent across preview and client views
+9. Verify the edits are consistent across template, preview and client views
