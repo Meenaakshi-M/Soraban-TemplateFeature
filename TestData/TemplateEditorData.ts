@@ -20,7 +20,9 @@ export function addSectionData() {
 
 export function addQuestionData() {
     const questionText = faker.lorem.sentence();
-    const questionType = 'text';
+    const questionTypeOptions = ['Yes/No', 'multiple choice', 'multiple select', 'upload', 
+    'date', 'short answer', 'long answer', 'sensitive information', 'email', 'phone', 'client entries', 'amount'];
+    const questionType = faker.helpers.arrayElement(questionTypeOptions);
     return {
         questionText: questionText,
         questionType: questionType

@@ -18,13 +18,14 @@ export class TemplateFrameworkPage {
     }
 
     async goto(templateId: string) {
-      await this.page.goto(`/templates/${templateId}/edit`);
+      await this.page.goto(`/templates/${templateId}`);
     }
 
     async addSection(sectionName: string) {
       await this.addSectionButton.click();
       await this.page.getByRole('textbox', { name: 'Section Name' }).fill(sectionName);
-      await this.page.getByRole('button', { name: 'Save Section' }).click();
+      await this.page.getByRole('combobox', { name: 'Section Type' }).selectOption('questionnaire');
+      await this.page.getByRole('button', { name: 'Add Section' }).click();
     }
 
     async addQuestion(sectionName: string, questionText: string, questionType: string) {

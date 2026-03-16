@@ -15,8 +15,19 @@ test.describe('Template Editor Conditional Logic Tests', () => {
         await templateFrameworkPage.addSection('Business Details');
         await templateFrameworkPage.addConditionalLogic('Personal Information', 'Did you own a business?', 'Yes', 'Business Details');
 
+        //Check if added sections and questions are visible in the template page
+        const section1 = templateFrameworkPage.page.locator('.section-container', { hasText: 'Personal Information' });
+        const section2 = templateFrameworkPage.page.locator('.section-container', { hasText: 'Business Details' });
+        const question = section1.locator('.question-row', { hasText: 'Did you own a business?' });
+
+        await expect(section1).toBeVisible();
+        await expect(section2).toBeVisible();
+        await expect(question).toBeVisible();
+        
+
         // Preview the template and validate conditional logic
-        await templateFrameworkPage.previewBtn.click();
+        await previewPage.goto('test_123');
+        await expect(previewPage.page).toHaveURL(/\/preview\/template\/test_123\//);
         const sectionHeaders = await previewPage.getSectionHeaders();
         const questionTexts = await previewPage.getQuestionTexts();
 

@@ -20,6 +20,7 @@ export class PreviewPage {
     }
 
     async goto(templateId: string) {
-        await this.page.goto(`/templates/${templateId}/preview`);
+        await this.page.getByRole('button', { name: 'Preview' }).click();
+        await this.page.goto(`/preview/template/${templateId}/`);
     }
 }

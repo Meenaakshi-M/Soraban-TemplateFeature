@@ -6,7 +6,7 @@ const baseURL =  process.env.API_BASE_URL;
 test.describe('Template Editor API Tests', () => {
   
 
-  test('E2E: Create template, sections and questions and related validations', async ({request}) => {
+  test('E2E: Template, sections questions CRUD and related validations', async ({request}) => {
     // Create a new template
     const templateData = addTemplateData();
     const postResponse = await request.post(`${baseURL}/api/v1/templates`, { data: {
@@ -14,7 +14,7 @@ test.describe('Template Editor API Tests', () => {
       description: templateData.templateDescription
     }});
     console.log('Template Data:', templateData);
-    // Validate that the response status is 201 (Created)
+   
     expect(postResponse.status()).toBe(201);
     const postResponseBody = await postResponse.json();
     expect(postResponseBody).toHaveProperty('id');
@@ -46,20 +46,20 @@ test.describe('Template Editor API Tests', () => {
       sectionType: 'questionnaire',
       instruction: sectionData.instruction
     } });
-    // Validate that the response status is 201 (Created)
+   
     expect(postSection2Response.status()).toBe(201);
     const postSection2ResponseBody = await postSection2Response.json();
     expect(postSection2ResponseBody).toHaveProperty('id');
     const section2Id = postSection2ResponseBody.id;
 
-  // Add questions to the created section
- const questionData = addQuestionData();
+    // Add questions to the created section
+    const questionData = addQuestionData();
    
- const postQuestion1Response = await request.post(`${baseURL}/api/v1/templates/${templateId}/sections/${section1Id}/questions`, { data: {
+    const postQuestion1Response = await request.post(`${baseURL}/api/v1/templates/${templateId}/sections/${section1Id}/questions`, { data: {
       text: questionData.questionText,
       type: questionData.questionType
     } });
-    // Validate that the response status is 201 (Created)
+    
     expect(postQuestion1Response.status()).toBe(201);
     const postQuestion1ResponseBody = await postQuestion1Response.json();
     expect(postQuestion1ResponseBody).toHaveProperty('id');
