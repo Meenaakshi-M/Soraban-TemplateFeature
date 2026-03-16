@@ -4,8 +4,8 @@ export function addTemplateData() {
     const templateName = faker.lorem.words(2);
     const templateDescription = faker.lorem.sentence();
     return {
-        templateName,
-        templateDescription
+        templateName: templateName,
+        templateDescription: templateDescription
     }
 }
 
@@ -13,8 +13,8 @@ export function addSectionData() {
     const sectionName = faker.lorem.words(2);
     const instruction = faker.lorem.sentence();
     return {
-        sectionName,
-        instruction
+        sectionName: sectionName,
+        instruction: instruction
     }
 } 
 
@@ -22,7 +22,7 @@ export function addQuestionData() {
     const questionText = faker.lorem.sentence();
     const questionType = 'text';
     return {
-        questionText,
-        questionType
+        questionText: questionText,
+        questionType: questionType
     }
 }
