@@ -21,14 +21,16 @@ TestCases
     2. Add a new question to an existing template
     3. Rename an existing section 
     4. Rename or rephrase existing questions from a section
+    5. Change answer options in an existing question
     3. Remove existing section
-    4. Remove existing questions from a section
+    4. Remove existing questions from a section and add new questions
     5. Reorder the sections in an existing template
     6. Reorder the questions in an existing template
-    7. Copying section or questions 
+    7. Copy a section from a template and use it another template
+    8. Copy questions from a section and use it another existing or new section
 3. Template Deletion(Section/question)
     1. Remove a section from an existing template
-    2. Remove questions from an existing template
+    2. Remove questions from an existing section
 
 ## Scenario 2 - Client Entries & Rollover
 
@@ -46,9 +48,10 @@ Use an existing template
 1. Create a new template from an existing template
 2. Access an existing section that has question type of client entry
 3. Add new questions to this section
-4. Edit a question
+4. Edit a question name, answer options
 5. Make sure rollover answers map correctly after the edits
 6. Make sure edits show up in template, preview and client page
+7. Make sure newly added questions for client entry shows up in exported questionnaire
 
 ## Scenario 3: Conditional Logic & Data Consistency
 
