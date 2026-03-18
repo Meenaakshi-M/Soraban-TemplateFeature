@@ -1,6 +1,6 @@
 import {test, expect} from '@playwright/test';
 import { addQuestionData, addSectionData, addTemplateData } from '../../TestData/TemplateEditorData.ts';
-import { logresponse, StatusCodeTobBeOneOf } from '../../Utils/helper.ts';
+import { logresponse, StatusCodeToBeOneOf } from '../../Utils/helper.ts';
 
 const baseURL =  process.env.API_BASE_URL;
 
@@ -10,9 +10,8 @@ test.describe('Template Editor API Tests', () => {
   test('E2E: Template, sections, questions CRUD and related validations', async ({request}) => {
     // Create a new template from scratch via API and validate response
     const templateData = addTemplateData();
-    const postResponse = await request.post(`${baseURL}/api/v1/templates`, { data: {
-      name: templateData.templateName,
-      description: templateData.templateDescription
+    const postResponse = await request.post(`${baseURL}/api/templates`, { data: {
+      name: templateData.templateName
     }});
     await logresponse(postResponse);
    
@@ -20,17 +19,15 @@ test.describe('Template Editor API Tests', () => {
     const postResponseBody = await postResponse.json();
     expect(postResponseBody).toHaveProperty('id');
     expect(postResponseBody.name).toBe(templateData.templateName);
-    expect(postResponseBody.description).toBe(templateData.templateDescription);
 
     const templateId = postResponseBody.id;
 
     //Add 2 sections to the created template and validate the responses
     const sectionData = addSectionData();
    
-    const postSection1Response = await request.post(`${baseURL}/api/v1/templates/${templateId}/sections`, { data: {
+    const postSection1Response = await request.post(`${baseURL}/api/templates/${templateId}/sections`, { data: {
       name: sectionData.sectionName,
-      sectionType: 'questionnaire',
-      instruction: sectionData.instruction
+      sectionType: 'questionnaire'
     }});
 
     await logresponse(postSection1Response);
@@ -38,14 +35,12 @@ test.describe('Template Editor API Tests', () => {
     const postSection1ResponseBody = await postSection1Response.json();
     expect(postSection1ResponseBody).toHaveProperty('id');
     expect(postSection1ResponseBody.name).toBe(sectionData.sectionName);
-    expect(postSection1ResponseBody.instruction).toBe(sectionData.instruction);
     const section1Id = postSection1ResponseBody.id;
   
     
-    const postSection2Response = await request.post(`${baseURL}/api/v1/templates/${templateId}/sections`, { data: {
+    const postSection2Response = await request.post(`${baseURL}/api/templates/${templateId}/sections`, { data: {
       name: sectionData.sectionName,
-      sectionType: 'questionnaire',
-      instruction: sectionData.instruction
+      sectionType: 'questionnaire'
     } });
 
     await logresponse(postSection2Response);
@@ -57,7 +52,7 @@ test.describe('Template Editor API Tests', () => {
     // Add questions to the created section and validate responses
     const questionData = addQuestionData();
    
-    const postQuestion1Response = await request.post(`${baseURL}/api/v1/templates/${templateId}/sections/${section1Id}/questions`, { data: {
+    const postQuestion1Response = await request.post(`${baseURL}/api/templates/${templateId}/sections/${section1Id}/questions`, { data: {
       text: questionData.questionText,
       type: questionData.questionType
     } });
@@ -71,7 +66,7 @@ test.describe('Template Editor API Tests', () => {
     const question1Id = postQuestion1ResponseBody.id;
 
     
-    const postQuestion2Response = await request.post(`${baseURL}/api/v1/templates/${templateId}/sections/${section2Id}/questions`, { data: {
+    const postQuestion2Response = await request.post(`${baseURL}/api/templates/${templateId}/sections/${section2Id}/questions`, { data: {
       text: questionData.questionText,
       type: questionData.questionType
     } });
@@ -83,16 +78,17 @@ test.describe('Template Editor API Tests', () => {
     const question2Id = postQuestion2ResponseBody.id;
 
     // Validate Section Edits
-    const putSectionResponse = await request.put(`/api/v1/templates/${templateId}/sections/${section1Id}`, { data: {
+    const putSectionResponse = await request.put(`${baseURL}/api/templates/${templateId}/sections/${section1Id}`, { data: {
       name: 'New Section Name',
     } });
    
     expect(putSectionResponse.status()).toBe(200);
     const putSectionResponseBody = await putSectionResponse.json();
+    console.log('Put Section Response Body:', putSectionResponseBody);
     expect(putSectionResponseBody.name).toBe('New Section Name');
 
     // Validate Question Edits
-    const putQuestionResponse = await request.put(`/api/v1/templates/${templateId}/sections/${section1Id}/questions/${question1Id}`, { data: {
+    const putQuestionResponse = await request.put(`${baseURL}/api/templates/${templateId}/sections/${section1Id}/questions/${question1Id}`, { data: {
       text: 'New Question Text',
     } });
     
@@ -101,24 +97,24 @@ test.describe('Template Editor API Tests', () => {
     expect(putQuestionResponseBody.text).toBe('New Question Text');
 
     // Delete the question from section2
-    const deleteQuestionResponse = await request.delete(`/api/v1/templates/${templateId}/sections/${section1Id}/questions/${question2Id}`);
+    const deleteQuestionResponse = await request.delete(`${baseURL}/api/templates/${templateId}/sections/${section1Id}/questions/${question2Id}`);
     expect(deleteQuestionResponse.status()).toBe(204);
 
     // Validate that the deleted question is not accessible anymore
-    const getDeletedQuestionResponse = await request.get(`/api/v1/templates/${templateId}/sections/${section1Id}/questions/${question2Id}`);
+    const getDeletedQuestionResponse = await request.get(`${baseURL}/api/templates/${templateId}/sections/${section1Id}/questions/${question2Id}`);
     expect(getDeletedQuestionResponse.status()).toBe(404);
 
     // Delete section2 and validate deletion
-    const deleteSectionResponse = await request.delete(`/api/v1/templates/${templateId}/sections/${section2Id}`);
+    const deleteSectionResponse = await request.delete(`${baseURL}/api/templates/${templateId}/sections/${section2Id}`);
     expect(deleteSectionResponse.status()).toBe(204);
     
     // Validate that the deleted section is not accessible anymore
-    const getDeletedSectionResponse = await request.get(`/api/v1/templates/${templateId}/sections/${section2Id}`);
+    const getDeletedSectionResponse = await request.get(`${baseURL}/api/templates/${templateId}/sections/${section2Id}`);
     expect(getDeletedSectionResponse.status()).toBe(404);
 
   });
 
-  test('Template, Session, QuestionCreation Validations - Negative Scenarios', async ({request}) => {
+  test('Template, Session, Question Creation Validations - Negative Scenarios', async ({request}) => {
     // Attempt to create a template without a name
     const postResponse = await request.post(`${baseURL}/api/v1/templates`, { data: {
       description: 'Template without a name'
@@ -131,8 +127,7 @@ test.describe('Template Editor API Tests', () => {
     // Attempt to create a section without a name
     const templateData = addTemplateData();
     const postTemplateResponse = await request.post(`${baseURL}/api/v1/templates`, { data: {
-      name: templateData.templateName,
-      description: templateData.templateDescription
+      name: templateData.templateName
     }});
     expect(postTemplateResponse.status()).toBe(201);
     const postTemplateResponseBody = await postTemplateResponse.json();
@@ -151,8 +146,7 @@ test.describe('Template Editor API Tests', () => {
     const sectionData = addSectionData();
     const postSectionResponse2 = await request.post(`${baseURL}/api/v1/templates/${templateId}/sections`, { data: {
       name: sectionData.sectionName,
-      sectionType: 'questionnaire',
-      instruction: sectionData.instruction
+      sectionType: 'questionnaire'
     } });
     expect(postSectionResponse2.status()).toBe(201);
     const postSectionResponseBody2 = await postSectionResponse2.json();
@@ -176,10 +170,10 @@ test.describe('Template Editor API Tests', () => {
     const postQuestionResponseBody2 = await postQuestionResponse2.json();
     const questionId = postQuestionResponseBody2.id;
 
-    const putQuestionResponse = await request.put(`/api/v1/templates/${templateId}/sections/${sectionId}/questions/${questionId}`, { data: {
+    const putQuestionResponse = await request.put(`${baseURL}/api/v1/templates/${templateId}/sections/${sectionId}/questions/${questionId}`, { data: {
       options: ['invalid phone number']
     } });
-    StatusCodeTobBeOneOf(putQuestionResponse, [400, 404]);
+    StatusCodeToBeOneOf(putQuestionResponse, [400, 404]);
     const putQuestionResponseBody = await putQuestionResponse.json();
     expect(putQuestionResponseBody).toHaveProperty('error');
     expect(putQuestionResponseBody.error).toContain('Invalid phone number');

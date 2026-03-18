@@ -28,7 +28,8 @@ switch(process.env.NODE_ENV) {
  */
 export default defineConfig({
   /*use: {
-    baseURL: process.env.BASE_URL,
+    baseURL: 'http://localhost:3000',
+    trace: 'on-first-retry',
   },*/
   testDir: './tests',
   /* Run tests in files in parallel */
