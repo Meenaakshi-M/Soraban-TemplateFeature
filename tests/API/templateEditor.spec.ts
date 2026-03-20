@@ -8,7 +8,7 @@ test.describe('Template Editor API Tests', () => {
   
 
   test('E2E: Template, sections, questions CRUD and related validations', async ({request}) => {
-    // Create a new template from scratch via API and validate response
+    // Create a new template from scratch via API and validate response 
     const templateData = addTemplateData();
     const postResponse = await request.post(`${baseURL}/api/templates`, { data: {
       name: templateData.templateName

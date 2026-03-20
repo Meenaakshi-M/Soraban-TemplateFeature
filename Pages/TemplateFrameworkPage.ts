@@ -43,5 +43,4 @@ export class TemplateFrameworkPage {
         await this.page.getByRole('combobox', { name: 'Then show section' }).selectOption(triggerSection);
         await this.saveBtn.click();
     }
-
-}
+  }

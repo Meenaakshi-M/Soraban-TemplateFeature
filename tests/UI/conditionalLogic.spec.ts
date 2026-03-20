@@ -7,7 +7,7 @@ test.describe('Template Editor Conditional Logic Tests', () => {
         const templateFrameworkPage = new TemplateFrameworkPage(page);
         const previewPage = new PreviewPage(page);
 
-        // Create a new template and add sections/questions with conditional logic
+        // Use an existing template and add sections/questions with conditional logic
         await templateFrameworkPage.goto('test_123');
         await templateFrameworkPage.addSection('Personal Information');
         await templateFrameworkPage.addQuestion('Personal Information', 'Did you own a business?', 'Yes/No');

@@ -11,7 +11,7 @@ TestCases
         1. Add a new section
         2. Add new questions (Have one test that covers 6 question types and another covering remaining 6.)
         3. Verify the newly created template in preview page and client page
-	2. Create template using or by duplicating existing template
+	2. Create template by duplicating existing template
 		1. Add a new section
 		2. Add new questions  
 		3. Reorder the sections
@@ -31,8 +31,9 @@ TestCases
 3. Template Deletion(Section/question)
     1. Remove a section from an existing template
     2. Remove questions from an existing section
+    3. Remove an existing template
 
-## Scenario 2 - Client Entries & Rollover
+## Scenario 2 - Client Entries, Rollover & Export
 
 Testcases
 

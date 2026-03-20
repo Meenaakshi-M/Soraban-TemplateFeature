@@ -10,6 +10,7 @@ I have used Typescript with Playwright as the test automation framework for both
         Environments - Contains environment specific configuration details like URL, API Key.
         TestData - Contains test data factory for template, section and question data.
         utils - Contains helper functions for API Response logging and Custom assertions.
+        github/workflows - Github Actions worflows that automatically triggers the tests after every pull request or push to master
 
 ## External Libraries used
 
