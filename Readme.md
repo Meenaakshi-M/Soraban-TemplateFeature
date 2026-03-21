@@ -8,14 +8,13 @@ I have used Typescript with Playwright as the test automation framework for both
         tests/UI - Contains UI test files.
         Pages - Contains page object design pattern files for template framework and preview page.
         Environments - Contains environment specific configuration details like URL, API Key.
-        TestData - Contains test data factory for template, section and question data.
-        utils - Contains helper functions for API Response logging and Custom assertions.
+        Utils/helper.ts - Contains helper functions for API Response logging and Custom assertions.
+        Utils/TemplateDataFactory.ts - Generates test data for template, section and question
         github/workflows - Github Actions worflows that automatically triggers the tests after every pull request or push to master
 
 ## External Libraries used
 
     dotenv - Used for handling configuration for different environments
-    faker - Used to generate unique test data that can be used across UI and API tests
 
 ## Helper Functions
 
