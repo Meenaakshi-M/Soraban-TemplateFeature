@@ -2,7 +2,7 @@ I have used Typescript with Playwright as the test automation framework for both
 
 ## Automation Folder Structure
 
-    Soraban-TemplateFeature/
+    TemplateFeature/
         TestPlan.md - Test Plan for the template editor feature. 
         tests/API - Contains API test files.
         tests/UI - Contains UI test files.
